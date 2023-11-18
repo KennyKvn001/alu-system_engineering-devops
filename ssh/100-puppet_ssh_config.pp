@@ -1,23 +1,16 @@
-# 100-puppet_ssh_config.pp
+#Define SSH config file path
+$ssh_config_file = '/etc/ssh/ssh_config'
 
-# Disable password authentication
-file_line { 'Turn off passwd auth':
-  path   => '/etc/ssh/sshd_config',
-  line   => 'PasswordAuthentication no',
-  match  => '^#PasswordAuthentication',
-  notify => Service['ssh'],
-}
-
-# Configure SSH client to use the private key
+#configure to use the private key ~/.ssh/school
 file_line { 'Declare identity file':
-  path   => '/etc/ssh/ssh_config',
-  line   => '    IdentityFile ~/.ssh/school',
-  match  => '^#?\s*IdentityFile',
-  notify => Service['ssh'],
+  path    => $ssh_config_file,
+  line    => '    IdentityFile ~/.ssh/school',
+  ensure  => present,
 }
 
-service { 'ssh':
-  ensure => running,
-  enable => true,
+#refuse to authenticate using a password
+file_line { 'Turn off passwd auth':
+  path    => $ssh_config_file,
+  line    => '    PasswordAuthentication no',
+  ensure  => present,
 }
-
