@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-#server login 
-
-ssh-add ~/.ssh/school
-ssh ubuntu@18.234.172.113

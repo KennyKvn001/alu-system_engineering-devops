@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Installs Nginx on a server
+
+apt update
+apt install -y nginx
+
+service nginx start
+
+rm /var/www/html/index.nginx-debian.html
+
+echo "<html><head></head><body><p>Holberton School</p></body></html>" > /var/www/html/index.html
+service nginx restart
+
+exit 0
