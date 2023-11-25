@@ -1,12 +1,24 @@
-<<<<<<< HEAD
 #!/usr/bin/env bash
-#server-01 login
-=======
-erver-01 login
->>>>>>> e73e3de3a57f4cc86301c56bc6d36d8c92ab06b0
+# server web-01 login
 
-eval $("ssh-agent")
+eval "$(ssh-agent)"
+
+if [ $? -ne 0 ]; then
+    echo "Failed to start ssh-agent."
+    exit 1
+fi
 
 ssh-add ~/.ssh/school
 
+if [ $? -ne 0 ]; then
+    echo "Failed to add ssh key to agent."
+    exit 1
+fi
+
 ssh ubuntu@54.227.176.119
+
+if [ $? -ne 0 ]; then
+    echo "Failed to connect via SSH."
+    exit 1
+fi
+
