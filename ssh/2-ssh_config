@@ -1,5 +1,1 @@
-# SSH client configuration to use the private key ~/.ssh/school
-# SSH client configuration is configured to refuse to authenticate using a password
 
-PasswordAuthentication no
-IdentifyFile ~/.ssh/school
