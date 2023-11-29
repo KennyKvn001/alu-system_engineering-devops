@@ -1,16 +1,41 @@
 #!/usr/bin/env bash
-#  A Script that configures a new Ubuntu machine to Perform a 301-redirection
+# Configure your Nginx server so that /redirect_me is redirecting to another page.
 
-# Upadating Packages before Installations
+# Update package list
 sudo apt-get update
-sudo apt-get install -y nginx
 
-# Creating an index.html page
-echo "Holberton School" | sudo tee /var/www/html/index.html
+# Install Nginx
+sudo apt-get -y install nginx
 
-# Performing a 301 Redirection
-string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/KennyKvn001 permanent;"
-sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+# Allow Nginx through the firewall
+sudo ufw allow 'Nginx HTTP'
 
-# Restarting Nginx service
-sudo service nginx restart
+# Create index.html
+echo "Hoberlton School" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
+
+# Configure Nginx for redirection
+config_file="/etc/nginx/sites-available/default"
+redirect_config="\
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+
+    location /redirect_me {
+        rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+    }
+}"
+
+# Replace the existing server block with the new configuration
+echo "$redirect_config" | sudo tee "$config_file" > /dev/null
+
+# Start Nginx
+sudo service nginx start
