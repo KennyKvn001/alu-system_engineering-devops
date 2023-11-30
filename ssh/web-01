@@ -3,22 +3,7 @@
 
 eval "$(ssh-agent)"
 
-if [ $? -ne 0 ]; then
-    echo "Failed to start ssh-agent."
-    exit 1
-fi
-
 ssh-add ~/.ssh/school
 
-if [ $? -ne 0 ]; then
-    echo "Failed to add ssh key to agent."
-    exit 1
-fi
-
-ssh ubuntu@54.227.176.119
-
-if [ $? -ne 0 ]; then
-    echo "Failed to connect via SSH."
-    exit 1
-fi
+ssh ubuntu@18.212.222.14
 
