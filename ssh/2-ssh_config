@@ -4,7 +4,7 @@ Host 3.95.238.235
     ForwardAgent yes
 #   ForwardX11 no
 #   ForwardX11Trusted yes
-    PasswordAuthentication yes
+    PasswordAuthentication no
 #   HostbasedAuthentication no
 #   GSSAPIAuthentication no
 #   GSSAPIDelegateCredentials no
