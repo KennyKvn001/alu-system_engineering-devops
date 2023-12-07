@@ -2,9 +2,4 @@
 # configures an nginx server to listen on port 80
 # creates a symbolic link (-a option) bt the nginx configuration and the enabled sites directory
 ln -af /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-
-# restart nginx
 service nginx start
-
-# terminate thr first nginx process ID
-kill "$(grep 'nginx' | head -1)"
